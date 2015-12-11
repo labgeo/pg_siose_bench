@@ -1,2 +1,2 @@
 # pg_siose_bench
-A PostgreSQL extension for benchmarking different SIOSE database configurations (pure relational, with indexes, json, jsonb, xml, etc))
+A PostgreSQL extension with tools for benchmarking different SIOSE database configurations (pure relational, indexed, json, jsonb, xml, etc)
