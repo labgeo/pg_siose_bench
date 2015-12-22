@@ -1,0 +1,39 @@
+{
+   "name": "pg_siose_bench",
+   "abstract": "A PostgreSQL extension with tools for benchmarking different SIOSE database configurations (pure relational, indexed, json, jsonb, xml, etc)",
+   "description": "A PostgreSQL extension with tools for benchmarking different SIOSE database configurations (pure relational, indexed, json, jsonb, xml, etc)",
+   "version": "0.0.1",
+   "maintainer": [
+      "José T. Navarro-Carrión <jt.navarrocarrion@gmail.com>"
+   ],
+   "license": "GPL3",
+   "provides": {
+      "pair": {
+         "abstract": "A PostgreSQL extension with tools for benchmarking different SIOSE database configurations (pure relational, indexed, json, jsonb, xml, etc)",
+         "file": "sql/pg_siose_bench.sql",
+         "docfile": "doc/pg_siose_bench.md",
+         "version": "0.0.1"
+      }
+   },
+   "resources": {
+      "bugtracker": {
+         "web": "https://github.com/labgeo/pg_siose_bench/issues"
+      },
+      "repository": {
+        "url":  "git://github.com/labgeo/pg_siose_bench.git",
+        "web":  "https://github.com/labgeo/pg_siose_bench",
+        "type": "git"
+      }
+   },
+   "generated_by": "Benito M. Zaragozí",
+   "meta-spec": {
+      "version": "1.0.0",
+      "url": "http://pgxn.org/meta/spec.txt"
+   },
+   "tags": [
+      "SIOSE",
+      "land use",
+      "land cover",
+      "INSPIRE"  
+   ]
+}

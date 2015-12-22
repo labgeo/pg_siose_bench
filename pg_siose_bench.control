@@ -1,0 +1,5 @@
+comment = 'A PostgreSQL extension with tools for benchmarking different SIOSE database configurations (pure relational, indexed, json, jsonb, xml, etc)'
+default_version = '0.0.1'
+relocatable = false
+schema = public
+requires = 'postgis'
