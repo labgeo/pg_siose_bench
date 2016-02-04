@@ -1,3 +1,13 @@
+
+
+--TODO: non tested as a function
+CREATE OR REPLACE FUNCTION siose.setup_relational()
+  RETURNS VOID AS
+$func$
+BEGIN
+
+EXECUTE format('
+
 --Rename siose_attributes columns
 ALTER TABLE siose.siose_attributes RENAME COLUMN "ID_ATRIBUTOS" TO id_attribute;
 ALTER TABLE siose.siose_attributes RENAME COLUMN "DESCRIPCION_ATRIBUTOS" TO attribute_desc;
@@ -50,33 +60,9 @@ FROM siose.siose_values
 DROP TABLE siose.siose_values;
 ALTER TABLE siose.siose_values_1 RENAME TO siose_values;
 ALTER TABLE siose.siose_values ADD COLUMN id serial;
-ALTER TABLE siose.siose_values ADD PRIMARY KEY (id);
-
---Index inter_id for faster aggregate queries
-CREATE INDEX siose_polygons_id_polygon_idx
-  ON siose.siose_polygons
-  USING btree
-  (id_polygon COLLATE pg_catalog."default");
-
-CREATE INDEX inter_id_idx_nulls_low
-  ON siose.siose_values
-  USING btree
-  (inter_id NULLS FIRST);
+ALTER TABLE siose.siose_values ADD PRIMARY KEY (id);');
 
 
-CREATE INDEX siose_values_id_polygon_idx
-  ON siose.siose_values
-  USING btree
-  (id_polygon COLLATE pg_catalog."default");
-
-
---Clustering
-CLUSTER siose.siose_polygons USING siose_polygons_id_polygon_idx;
-CLUSTER siose.siose_values USING siose_values_id_polygon_idx;
-
---Vacuuming
-VACUUM ANALYZE;
-
-
-
+END
+$func$ LANGUAGE plpgsql;
 

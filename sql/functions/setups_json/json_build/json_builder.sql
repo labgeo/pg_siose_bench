@@ -1,7 +1,3 @@
--- Function: siose.json_builder(text)
-
--- DROP FUNCTION siose.json_builder(text);
-
 CREATE OR REPLACE FUNCTION siose.json_builder(__id_polygon__ text)
   RETURNS json AS
 $BODY$
@@ -126,7 +122,4 @@ FROM (
 
    
 $BODY$
-  LANGUAGE sql VOLATILE
-  COST 100;
-ALTER FUNCTION siose.json_builder(text)
-  OWNER TO postgres;
+LANGUAGE sql VOLATILE
