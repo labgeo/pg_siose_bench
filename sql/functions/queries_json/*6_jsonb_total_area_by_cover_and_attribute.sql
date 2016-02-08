@@ -7,7 +7,7 @@ WITH mapwindow AS(
 polygons AS(
 	SELECT * 
 	FROM siose.siose_polygons p, mapwindow 
-	WHERE st_intersects(mapwindow.geom, p.geom)
+	WHERE mapwindow.geom && p.geom
 )
 
 SELECT SUM(v.area_ha)
