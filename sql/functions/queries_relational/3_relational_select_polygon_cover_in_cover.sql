@@ -4,7 +4,7 @@
 WITH mapwindow AS(
 	SELECT * 
 	FROM siose.spain_grid_500k 
-	WHERE gid = 12
+	WHERE gid = 19
 ),
 polygons AS(
 	SELECT * 
@@ -12,7 +12,7 @@ polygons AS(
 	WHERE mapwindow.geom && p.geom
 )
 
-SELECT v.id_polygon
+SELECT DISTINCT v.id_polygon
 FROM siose.siose_values v, polygons p
 WHERE v.id_polygon IN (p.id_polygon) AND v.id_cover=111 AND v.id_parents @> ARRAY[912];
 

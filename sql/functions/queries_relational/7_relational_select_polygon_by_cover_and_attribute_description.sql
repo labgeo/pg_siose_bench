@@ -2,8 +2,8 @@
 --TODO: Maybe same query based on codes instead of descriptions
 WITH mapwindow AS(
 	SELECT * 
-	FROM siose.spain_grid_10k 
-	WHERE gid=1000
+	FROM siose.spain_grid_100k 
+	WHERE gid=6
 ),
 polygons AS(
 	SELECT * 
@@ -24,4 +24,4 @@ lookup AS (
 	JOIN siose.siose_coverages AS sc ON sc.id_cover=sv.id_cover
 )
 
-SELECT id_polygon FROM lookup WHERE cover_desc='Matorral' AND attribute_desc@> ARRAY['procedencia de cultivos'];
+SELECT DISTINCT id_polygon FROM lookup WHERE cover_desc='Matorral' AND attribute_desc@> ARRAY['procedencia de cultivos'];
