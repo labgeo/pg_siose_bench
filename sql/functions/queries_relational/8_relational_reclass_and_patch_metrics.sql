@@ -2,8 +2,8 @@
 -- 316 - Coniferous
 WITH mapwindow AS(
 	SELECT * 
-	FROM siose.spain_grid_100k 
-	WHERE gid = 4
+	FROM siose.spain_grid_1m
+	WHERE gid = 15
 ),
 polygons AS(
 	SELECT * 
@@ -12,7 +12,7 @@ polygons AS(
 )
 
 
-SELECT densclas AS density, COUNT(densclas) AS patches, SUM(sum) AS area_ha FROM 
+SELECT densclas AS density_classification, COUNT(densclas) AS patches, SUM(sum) AS area_ha FROM 
 
 ((SELECT v.id_polygon, '1.- Low density' AS densclas, SUM(v.area_ha)
 FROM siose.siose_values v, polygons p
@@ -44,5 +44,6 @@ WHERE v.id_polygon IN (p.id_polygon) AND v.id_cover=316
 AND v.area_perc BETWEEN 75 AND 100
 GROUP BY v.id_polygon)) AS reclass
 
-GROUP BY densclas;
+GROUP BY densclas
+ORDER BY density_classification ASC;
 
