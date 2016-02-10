@@ -3,11 +3,7 @@
 --TODO: non tested as a function
 CREATE OR REPLACE FUNCTION siose.setup_relational()
   RETURNS VOID AS
-$func$
-BEGIN
-
-EXECUTE format('
-
+$BODY$
 --Rename siose_attributes columns
 ALTER TABLE siose.siose_attributes RENAME COLUMN "ID_ATRIBUTOS" TO id_attribute;
 ALTER TABLE siose.siose_attributes RENAME COLUMN "DESCRIPCION_ATRIBUTOS" TO attribute_desc;
@@ -60,8 +56,24 @@ FROM siose.siose_values
 DROP TABLE siose.siose_values;
 ALTER TABLE siose.siose_values_1 RENAME TO siose_values;
 ALTER TABLE siose.siose_values ADD COLUMN id serial;
-ALTER TABLE siose.siose_values ADD PRIMARY KEY (id);');
+ALTER TABLE siose.siose_values ADD PRIMARY KEY (id);
 
+--Create log table
+CREATE TABLE siose.query_plans
+(
+  query_id text NOT NULL,
+  grid_id text NOT NULL,
+  cell_gid bigint NOT NULL,
+  iteration integer NOT NULL,
+  query_plan json,
+  CONSTRAINT query_plans_pkey PRIMARY KEY (query_id, grid_id, cell_gid, iteration)
+);
+
+--Index log table for queries combining query_id and grid_id
+CREATE INDEX query_plans_query_id_grid_id_idx
+  ON siose.query_plans
+  USING btree
+  (query_id COLLATE pg_catalog."default", grid_id COLLATE pg_catalog."default");
 
 END
 $func$ LANGUAGE plpgsql;
