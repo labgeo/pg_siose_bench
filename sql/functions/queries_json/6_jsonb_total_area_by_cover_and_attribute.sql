@@ -6,7 +6,7 @@
 WITH mapwindow AS(
 	SELECT * 
 	FROM siose.spain_grid_1m 
-	WHERE gid=15
+	WHERE gid=1
 ),
 polygons AS(
 	SELECT *
@@ -48,7 +48,7 @@ bind AS(
 	SELECT * FROM unnest3 WHERE elements::text LIKE '%pl%'
 )
 
-SELECT SUM((elements->>'-area_ha')::double precision) 
+SELECT SUM((elements->>'-area_ha')::double precision)  AS total_area_CNFpl_Ha
 FROM bind
 WHERE elements->>'-id'='CNF'
 
