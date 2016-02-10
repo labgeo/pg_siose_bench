@@ -1,10 +1,10 @@
 --3.2.4. Selección de polígonos que contengan una cobertura dentro de otra.
--- 111 - Otras construcciones
--- 912 - Conducciones y canales
+-- 101 - Edificaciones
+-- 813 - Urbano discontinuo
 WITH mapwindow AS(
 	SELECT * 
-	FROM siose.spain_grid_500k
-	WHERE gid = 19
+	FROM siose.spain_grid_1m
+	WHERE gid = 12
 ),
 polygons AS(
 	SELECT *
@@ -15,9 +15,9 @@ bfilter AS(
 	SELECT *
 	FROM polygons
 	WHERE 
-	docs @> '{"polygon": {"cover": {"-id": "NCC", "cover": [{"-id": "OCT"}]}}}'
-	OR docs @> '{"polygon": {"cover": {"cover": [{"-id": "NCC", "cover": [{"-id": "OCT"}]}]}}}'
-	OR docs @> '{"polygon": {"cover": {"cover": [{"cover": [{"-id": "NCC", "cover":[{"-id": "OCT"}]}]}]}}}'
+	docs @> '{"polygon": {"cover": {"-id": "UDS", "cover": [{"-id": "EDF"}]}}}'
+	OR docs @> '{"polygon": {"cover": {"cover": [{"-id": "UDS", "cover": [{"-id": "EDF"}]}]}}}'
+	OR docs @> '{"polygon": {"cover": {"cover": [{"cover": [{"-id": "UDS", "cover":[{"-id": "EDF"}]}]}]}}}'
 )
 
 SELECT id_polygon FROM bfilter;
