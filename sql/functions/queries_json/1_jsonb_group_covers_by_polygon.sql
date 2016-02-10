@@ -2,7 +2,7 @@
 WITH mapwindow AS(
 	SELECT * 
 	FROM siose.spain_grid_1m
-	WHERE gid=1
+	WHERE gid=12
 ),
 polygons AS(
 	SELECT *
@@ -16,15 +16,18 @@ unnest AS(
 ),
 unnest1 AS(
 	SELECT id_polygon, siose_code, 
-		jsonb_array_elements(elements#>'{cover}') as elements FROM unnest
+		jsonb_array_elements(elements#>'{cover}') as elements
+	FROM unnest
 ),
 unnest2 AS(
 	SELECT id_polygon, siose_code, 
-		jsonb_array_elements(elements#>'{cover}') as elements FROM unnest1
+		jsonb_array_elements(elements#>'{cover}') as elements
+	FROM unnest1
 ),
 unnest3 AS(
 	SELECT id_polygon, siose_code, 
-		jsonb_array_elements(elements#>'{cover}') as elements FROM unnest2
+		jsonb_array_elements(elements#>'{cover}') as elements
+	FROM unnest2
 ),
 bind AS(
 	SELECT * FROM unnest
@@ -37,6 +40,5 @@ bind AS(
 )
 
 SELECT id_polygon, (elements->>'-id') AS id_cover, SUM((elements->>'-area_perc')::double precision) AS sum_area_perc ,SUM((elements->>'-area_ha')::double precision) AS sum_area_ha
-FROM bind
-GROUP BY id_polygon, id_cover
-ORDER BY id_polygon;
+FROM bind 
+GROUP BY id_polygon, siose_code, id_cover;
