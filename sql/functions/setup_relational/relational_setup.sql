@@ -92,7 +92,7 @@ CREATE TABLE siose.query_plans
   grid_id text NOT NULL,
   cell_gid bigint NOT NULL,
   iteration integer NOT NULL,
-  query_plan json,
+  query_plan jsonb,
   CONSTRAINT query_plans_pkey PRIMARY KEY (query_id, grid_id, cell_gid, iteration)
 );
 
@@ -102,6 +102,12 @@ CREATE INDEX query_plans_query_id_grid_id_idx
   USING btree
   (query_id COLLATE pg_catalog."default", grid_id COLLATE pg_catalog."default");
 
-END
-$func$ LANGUAGE plpgsql;
+--Index log table for accessing query plan data using jsonb operators
+CREATE INDEX query_plans_query_plan_idx
+  ON siose.query_plans
+  USING gin
+  (query_plan);
+
+$BODY$ 
+LANGUAGE sql;
 
