@@ -5,7 +5,9 @@ monitor (16:9 aprox). As 4326 is the working SRID defined for the siose polygons
 have been created by applying a generalization in the meters to degrees conversion (1 degree=111.11111Km).
 */
 
---TODO: test as a function
+--TODO: This funcion is only valid for the relational docker.
+--Tables containing siose polygons in each docker can be renamed or we can add a parameter
+--to allow specifying table names.
 CREATE OR REPLACE FUNCTION build_regular_grids()
   RETURNS VOID AS
 $func$
@@ -150,6 +152,6 @@ $func$ LANGUAGE plpgsql;
 
 
 
-SELECT build_regular_grids();
+--SELECT build_regular_grids();
 
 
