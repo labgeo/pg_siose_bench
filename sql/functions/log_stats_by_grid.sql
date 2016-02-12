@@ -1,6 +1,7 @@
 --TODO: Add parameters for number of iterations or warm-up iteration
 CREATE OR REPLACE FUNCTION siose.log_stats_by_grid(_grid_name text)
   RETURNS TABLE (
+	grid_name text,
 	query_id text,   -- visible as OUT parameter inside and outside function
 	total_polygons numeric,
 	total_returned_rows bigint,
@@ -47,7 +48,7 @@ reference_values AS(
 	FROM full_experiment	
 )
 
-SELECT *, total_polygons/total_execution_time AS polygons_per_ms FROM reference_values;', _grid_name, _grid_name);
+SELECT \'%I\'::text AS grid_name, *, total_polygons/total_execution_time AS polygons_per_ms FROM reference_values;', _grid_name, _grid_name, _grid_name);
 
 RETURN;
 
