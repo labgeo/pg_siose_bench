@@ -108,6 +108,12 @@ CREATE INDEX query_plans_query_plan_idx
   USING gin
   (query_plan);
 
-$BODY$ 
+
+CLUSTER siose.siose_polygons USING siose_polygons_geom_idx;
+CLUSTER siose.siose_values USING siose_values_id_polygon_idx;
+
+ANALYZE;
+
+$BODY$
 LANGUAGE sql;
 

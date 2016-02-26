@@ -26,7 +26,27 @@ ALTER TABLE siose.docstore_jsonb ADD PRIMARY KEY (gid);
 DROP TABLE siose.siose_attributes;
 DROP TABLE siose.siose_coverages;
 DROP TABLE siose.siose_polygons;
-DROP TABLE siose.siose_values;');
+DROP TABLE siose.siose_values;
+
+
+--Query returned successfully with no result in 29828 ms.
+CREATE INDEX IF NOT EXISTS docstore_jsonb_geom_idx
+  ON siose.docstore_jsonb
+  USING gist
+  (geom);
+
+CREATE INDEX docstore_jsonb_docs_idx
+  ON siose.docstore_jsonb
+  USING gin
+  (docs);
+
+--Query returned successfully with no result in 161451 ms.
+CLUSTER siose.docstore_jsonb USING docstore_jsonb_geom_idx;
+
+--Query returned successfully with no result in 816 ms.
+ANALYZE siose.docstore_jsonb;
+
+');
 
 END
 $func$ LANGUAGE plpgsql;
