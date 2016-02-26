@@ -49,7 +49,7 @@ string_to_array(inter_parents, ',')::integer[] AS inter_parents,
 string_to_array(attributes, ',')::integer[] AS attributes,
 area_ha,
 area_perc
-FROM siose.siose_values
+FROM siose.siose_values;
 
 --Replace siose_values by siose_values_1
 DROP TABLE siose.siose_values;
