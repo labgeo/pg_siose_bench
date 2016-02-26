@@ -3,6 +3,9 @@
 CREATE OR REPLACE FUNCTION siose.setup_relational()
   RETURNS VOID AS
 $BODY$
+BEGIN
+
+EXECUTE format('
 --Rename siose_attributes columns
 ALTER TABLE siose.siose_attributes RENAME COLUMN "ID_ATRIBUTOS" TO id_attribute;
 ALTER TABLE siose.siose_attributes RENAME COLUMN "DESCRIPCION_ATRIBUTOS" TO attribute_desc;
@@ -113,6 +116,9 @@ CLUSTER siose.siose_values USING siose_values_id_polygon_idx;
 
 ANALYZE;
 
-$BODY$
-LANGUAGE sql;
+');
+
+END
+$BODY$ LANGUAGE plpgsql;
+
 
