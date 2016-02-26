@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.which_scattered_urbanisation()
   RETURNS void AS
 $BODY$
@@ -22,3 +23,4 @@ $BODY$
   SELECT siose.log_query_plans('which_scattered_urbanisation');
 $BODY$
   LANGUAGE sql VOLATILE;
+

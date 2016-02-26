@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.lookup_attribute_description(attribute_codes integer[])
   RETURNS text[] AS
 $BODY$
@@ -17,3 +18,4 @@ BEGIN
 END 
 $BODY$
   LANGUAGE plpgsql VOLATILE;
+

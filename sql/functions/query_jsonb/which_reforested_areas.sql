@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.which_reforested_areas()
   RETURNS void AS
 $BODY$
@@ -26,3 +27,4 @@ $BODY$
   SELECT siose.log_query_plans('which_reforested_areas');
 $BODY$
   LANGUAGE sql VOLATILE;
+

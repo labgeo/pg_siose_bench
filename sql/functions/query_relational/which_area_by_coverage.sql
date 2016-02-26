@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.which_area_by_coverage()
   RETURNS void AS
 $BODY$

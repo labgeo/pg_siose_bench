@@ -1,5 +1,4 @@
 
-
 --TODO: non tested as a function
 CREATE OR REPLACE FUNCTION siose.setup_relational()
   RETURNS VOID AS

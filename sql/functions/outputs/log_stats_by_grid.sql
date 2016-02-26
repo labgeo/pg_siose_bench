@@ -1,3 +1,4 @@
+
 --TODO: Add parameters for number of iterations or warm-up iteration
 CREATE OR REPLACE FUNCTION siose.log_stats_by_grid(_grid_name text)
   RETURNS TABLE (
@@ -55,5 +56,3 @@ RETURN;
 END
 $func$  LANGUAGE plpgsql;
 
-
---SELECT * FROM siose.log_stats_by_grid('spain_grid_1m')

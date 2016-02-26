@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.json_builder(__id_polygon__ text)
   RETURNS json AS
 $BODY$
@@ -122,4 +123,4 @@ FROM (
 
    
 $BODY$
-LANGUAGE sql VOLATILE
+LANGUAGE sql VOLATILE;

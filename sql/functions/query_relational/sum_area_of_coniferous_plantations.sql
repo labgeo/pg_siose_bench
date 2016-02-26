@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.sum_area_of_coniferous_plantations()
   RETURNS void AS
 $BODY$
@@ -8,3 +9,4 @@ $BODY$
   SELECT siose.log_query_plans('sum_area_of_coniferous_plantations');
 $BODY$
   LANGUAGE sql VOLATILE;
+

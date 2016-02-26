@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.which_abandoned_farmland_using_description()
   RETURNS void AS
 $BODY$
@@ -15,3 +16,4 @@ $BODY$
   SELECT siose.log_query_plans('which_abandoned_farmland_using_description');
 $BODY$
   LANGUAGE sql VOLATILE;
+

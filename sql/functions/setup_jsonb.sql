@@ -50,3 +50,4 @@ ANALYZE siose.docstore_jsonb;
 
 END
 $func$ LANGUAGE plpgsql;
+

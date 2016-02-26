@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.which_large_coniferous_patches()
   RETURNS void AS
 $BODY$
@@ -49,3 +50,4 @@ $BODY$
   SELECT siose.log_query_plans('which_large_coniferous_patches');
 $BODY$
   LANGUAGE sql VOLATILE;
+

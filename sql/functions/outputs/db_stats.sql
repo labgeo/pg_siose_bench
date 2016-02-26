@@ -1,5 +1,7 @@
 
-WITH sizes AS(
+
+--TODO: Encapsulate as a function
+/*WITH sizes AS(
 SELECT relname as "Table",
 	pg_size_pretty(pg_total_relation_size(relid)) As "Size",
 	pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) as "External Size"
@@ -24,5 +26,4 @@ AND relname NOT LIKE '%sql_%'
 SELECT s."Table", "#Rows", "Size", "External Size"
 FROM sizes s 
 JOIN nrows n ON s."Table"=n."Table"
-ORDER BY n."#Rows" DESC
-
+ORDER BY n."#Rows" DESC*/

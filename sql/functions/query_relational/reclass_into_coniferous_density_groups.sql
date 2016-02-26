@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.reclass_into_coniferous_density_groups()
   RETURNS void AS
 $BODY$

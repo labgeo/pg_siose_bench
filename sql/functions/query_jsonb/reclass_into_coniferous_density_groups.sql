@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.reclass_into_coniferous_density_groups()
   RETURNS void AS
 $BODY$
@@ -74,3 +75,5 @@ $BODY$
   SELECT siose.log_query_plans('reclass_into_coniferous_density_groups');
 $BODY$
   LANGUAGE sql VOLATILE;
+
+

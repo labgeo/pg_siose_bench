@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.regular_grid(p_geometry   geometry,
                                           p_TileSizeX  NUMERIC,
                                           p_TileSizeY  NUMERIC,
@@ -47,4 +48,4 @@ BEGIN
    END Loop;
 END;
 $BODY$
-  LANGUAGE plpgsql IMMUTABLE
+  LANGUAGE plpgsql IMMUTABLE;

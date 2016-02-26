@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION siose.log_query_plans(query_key text)
   RETURNS void AS
 $BODY$

@@ -1,3 +1,4 @@
+
 /* 
 This script is used to compose 7 rectangular grids for simulating web map queries on the SIOSE 
 database. Each grid cell represents a map window at a given scale, and considering a panoramic
