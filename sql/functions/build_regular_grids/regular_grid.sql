@@ -1,5 +1,4 @@
 
-CREATE SCHEMA IF NOT EXISTS grids;
 
 CREATE OR REPLACE FUNCTION grids.regular_grid(p_geometry   geometry,
                                           p_TileSizeX  NUMERIC,
