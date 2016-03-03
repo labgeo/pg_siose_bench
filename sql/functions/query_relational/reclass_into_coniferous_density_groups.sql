@@ -2,6 +2,14 @@
 CREATE OR REPLACE FUNCTION siose.reclass_into_coniferous_density_groups()
   RETURNS void AS
 $BODY$
+
+DECLARE
+script text;
+
+BEGIN
+
+script:= $literal$
+
   PREPARE q(geometry) AS
   SELECT densclas AS density_classification, COUNT(densclas) AS patches, SUM(sum) AS area_ha FROM 
   ((SELECT p.id_polygon, '1.- Low density' AS densclas, SUM(v.area_ha)
@@ -37,7 +45,12 @@ $BODY$
   GROUP BY densclas
   ORDER BY density_classification ASC;
 
-  SELECT siose.log_query_plans('reclass_into_coniferous_density_groups');
-$BODY$
-  LANGUAGE sql VOLATILE;
+  SELECT reports.log_query_plans('reclass_into_coniferous_density_groups');
+
+$literal$;
+
+EXECUTE script;
+
+END
+$BODY$ LANGUAGE plpgsql;
 

@@ -1,11 +1,21 @@
 
-CREATE OR REPLACE FUNCTION siose.which_large_coniferous_patches()
+CREATE OR REPLACE FUNCTION sioseb.which_large_coniferous_patches()
   RETURNS void AS
 $BODY$
+
+
+DECLARE
+script text;
+
+BEGIN
+
+script:= $literal$
+
+
   PREPARE q(geometry) AS
   WITH polygons AS(
     SELECT id_polygon, docs
-    FROM siose.docstore_jsonb
+    FROM sioseb.docstore_jsonb
     WHERE geom && $1
   ),
   --Now unnest every possible inner level
@@ -47,7 +57,11 @@ $BODY$
   WHERE elements->>'-id'='CNF' AND (elements->>'-area_ha')::numeric > 1
   GROUP BY id_polygon;
 
-  SELECT siose.log_query_plans('which_large_coniferous_patches');
-$BODY$
-  LANGUAGE sql VOLATILE;
+  SELECT reports.log_query_plans('which_large_coniferous_patches');
+$literal$;
 
+
+EXECUTE script;
+
+END
+$BODY$ LANGUAGE plpgsql;

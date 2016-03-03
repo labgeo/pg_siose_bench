@@ -1,11 +1,21 @@
 
-CREATE OR REPLACE FUNCTION siose.reclass_into_coniferous_density_groups()
+
+CREATE OR REPLACE FUNCTION sioseb.reclass_into_coniferous_density_groups()
   RETURNS void AS
 $BODY$
+
+DECLARE
+script text;
+
+BEGIN
+
+script:= $literal$
+
+
   PREPARE q(geometry) AS
   WITH polygons AS(
     SELECT id_polygon, docs 
-    FROM siose.docstore_jsonb
+    FROM sioseb.docstore_jsonb
     WHERE geom && $1
   ),
   --Now unnest every possible inner level
@@ -72,8 +82,12 @@ $BODY$
   GROUP BY densclas
   ORDER BY density_classification ASC;
 
-  SELECT siose.log_query_plans('reclass_into_coniferous_density_groups');
-$BODY$
-  LANGUAGE sql VOLATILE;
+  SELECT reports.log_query_plans('reclass_into_coniferous_density_groups');
+$literal$;
 
+
+EXECUTE script;
+
+END
+$BODY$ LANGUAGE plpgsql;
 

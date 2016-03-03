@@ -1,11 +1,21 @@
 
-CREATE OR REPLACE FUNCTION siose.sum_area_of_coniferous_plantations()
+
+CREATE OR REPLACE FUNCTION sioseb.sum_area_of_coniferous_plantations()
   RETURNS void AS
 $BODY$
+
+DECLARE
+script text;
+
+BEGIN
+
+script:= $literal$
+
+
   PREPARE q(geometry) AS
   WITH polygons AS(
     SELECT docs
-    FROM siose.docstore_jsonb
+    FROM sioseb.docstore_jsonb
     WHERE geom && $1
   ),
   --Now unnest every possible inner level
@@ -45,7 +55,12 @@ $BODY$
   FROM bind
   WHERE elements->>'-id'='CNF';
 
-  SELECT siose.log_query_plans('sum_area_of_coniferous_plantations');
-$BODY$
-  LANGUAGE sql VOLATILE;
+  SELECT reports.log_query_plans('sum_area_of_coniferous_plantations');
+$literal$;
+
+
+EXECUTE script;
+
+END
+$BODY$ LANGUAGE plpgsql;
 

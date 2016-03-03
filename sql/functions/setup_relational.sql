@@ -1,4 +1,4 @@
---TODO: non tested as a function
+
 CREATE OR REPLACE FUNCTION siose.setup_relational()
   RETURNS VOID AS
 $BODY$
@@ -90,30 +90,6 @@ CREATE INDEX siose_values_id_cover_idx
 CREATE INDEX siose_values_id_parents_idx on siose.siose_values USING GIN (id_parents);
 CREATE INDEX siose_values_inter_parents_idx on siose.siose_values USING GIN (inter_parents);
 CREATE INDEX siose_values_attributes_idx on siose.siose_values USING GIN (attributes);
-
---Create log table
-CREATE TABLE siose.query_plans
-(
-  query_id text NOT NULL,
-  grid_id text NOT NULL,
-  cell_gid bigint NOT NULL,
-  iteration integer NOT NULL,
-  query_plan jsonb,
-  CONSTRAINT query_plans_pkey PRIMARY KEY (query_id, grid_id, cell_gid, iteration)
-);
-
---Index log table for queries combining query_id and grid_id
-CREATE INDEX query_plans_query_id_grid_id_idx
-  ON siose.query_plans
-  USING btree
-  (query_id COLLATE pg_catalog."default", grid_id COLLATE pg_catalog."default");
-
---Index log table for accessing query plan data using jsonb operators
-CREATE INDEX query_plans_query_plan_idx
-  ON siose.query_plans
-  USING gin
-  (query_plan);
-
 
 CLUSTER siose.siose_polygons USING siose_polygons_geom_idx;
 CLUSTER siose.siose_values USING siose_values_id_polygon_idx;

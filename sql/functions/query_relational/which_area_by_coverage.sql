@@ -2,6 +2,16 @@
 CREATE OR REPLACE FUNCTION siose.which_area_by_coverage()
   RETURNS void AS
 $BODY$
+
+
+DECLARE
+script text;
+
+BEGIN
+
+script:= $literal$
+
+
   PREPARE q(geometry) AS
   WITH join_data AS (
     SELECT p.id_polygon, p.siose_code, c.cover_code,
@@ -20,7 +30,11 @@ $BODY$
   SELECT id_polygon, id_cover, sum(area_perc) AS sum_area_perc, sum(area_ha) AS sum_area_ha
   FROM replace_cover_code 
   GROUP BY id_polygon, siose_code, id_cover;
-  SELECT siose.log_query_plans('which_area_by_coverage');
-$BODY$
-  LANGUAGE sql VOLATILE;
+  SELECT reports.log_query_plans('which_area_by_coverage');
+$literal$;
 
+
+EXECUTE script;
+
+END
+$BODY$ LANGUAGE plpgsql;

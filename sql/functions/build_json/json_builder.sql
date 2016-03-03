@@ -1,8 +1,16 @@
 
-CREATE OR REPLACE FUNCTION siose.json_builder(__id_polygon__ text)
+CREATE OR REPLACE FUNCTION siose.json_builder(text)
   RETURNS json AS
 $BODY$
 
+
+DECLARE
+script text;
+siose_object json;
+
+BEGIN
+
+script:= $literal$
 
 WITH RECURSIVE load_data AS (
 
@@ -28,7 +36,7 @@ WITH RECURSIVE load_data AS (
 	JOIN siose.siose_values AS sv ON sp.id_polygon=sv.id_polygon
 	JOIN siose.siose_coverages AS sc ON sc.id_cover=sv.id_cover
 
-	WHERE sp.id_polygon=__id_polygon__
+	WHERE sp.id_polygon= %s
 	ORDER BY inter_id),
 
 hierarchy AS (--Calculate levels
@@ -121,6 +129,13 @@ FROM (
 ) s1 GROUP BY id_polygon, siose_code;
 
 
-   
-$BODY$
-LANGUAGE sql VOLATILE;
+$literal$;
+
+script:=format(script, quote_literal($1));
+
+EXECUTE script INTO siose_object;
+RETURN siose_object;
+
+END
+$BODY$ 
+LANGUAGE plpgsql;

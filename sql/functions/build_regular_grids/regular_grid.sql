@@ -1,9 +1,11 @@
 
-CREATE OR REPLACE FUNCTION siose.regular_grid(p_geometry   geometry,
+CREATE SCHEMA IF NOT EXISTS grids;
+
+CREATE OR REPLACE FUNCTION grids.regular_grid(p_geometry   geometry,
                                           p_TileSizeX  NUMERIC,
                                           p_TileSizeY  NUMERIC,
                                           p_point      BOOLEAN DEFAULT TRUE)
-  RETURNS SETOF siose.grid AS
+  RETURNS SETOF grids.grid AS
 $BODY$
 DECLARE
    v_mbr   geometry;
@@ -14,7 +16,7 @@ DECLARE
    v_hiCol int4;
    v_loRow int4;
    v_hiRow int4;
-   v_grid  siose.grid;
+   v_grid  grids.grid;
 BEGIN
    IF ( p_geometry IS NULL ) THEN
       RETURN;

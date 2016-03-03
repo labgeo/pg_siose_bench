@@ -2,6 +2,16 @@
 CREATE OR REPLACE FUNCTION siose.which_abandoned_farmland_using_description()
   RETURNS void AS
 $BODY$
+
+
+DECLARE
+script text;
+
+BEGIN
+
+script:= $literal$
+
+
   PREPARE q(geometry) AS
   WITH lookup AS (
   SELECT p.id_polygon,
@@ -13,7 +23,12 @@ $BODY$
   )
   SELECT id_polygon FROM lookup WHERE cover_desc = 'Matorral' AND attribute_desc @> ARRAY['procedencia de cultivos'] 
   GROUP BY 1;  
-  SELECT siose.log_query_plans('which_abandoned_farmland_using_description');
-$BODY$
-  LANGUAGE sql VOLATILE;
+  SELECT reports.log_query_plans('which_abandoned_farmland_using_description');
+$literal$;
+
+
+EXECUTE script;
+
+END
+$BODY$ LANGUAGE plpgsql;
 
