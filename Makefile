@@ -9,7 +9,7 @@ DOCS = $(wildcard doc/*.md)
 
 all: sql/$(EXTENSION)--$(EXTVERSION).sql
 
-sql/$(EXTENSION)--$(EXTVERSION).sql: sql/functions/*.sql sql/functions/build_json/*.sql sql/functions/build_regular_grids/*.sql sql/functions/logging/*.sql sql/functions/outputs/*.sql sql/functions/query_jsonb/*.sql sql/functions/query_relational/*.sql
+sql/$(EXTENSION)--$(EXTVERSION).sql: sql/functions/*.sql sql/functions/build_json/*.sql sql/functions/build_regular_grids/*.sql sql/functions/reports/*.sql sql/functions/query_jsonb/*.sql sql/functions/query_relational/*.sql
 	cat $^ > $@
 
 DATA = $(wildcard updates/*--*.sql) sql/$(EXTENSION)--$(EXTVERSION).sql
