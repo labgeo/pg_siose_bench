@@ -1,7 +1,7 @@
 
 --TODO: Add parameters for number of iterations or warm-up iteration
 --TODO: Change to dollar-quoted strings
-CREATE OR REPLACE FUNCTION reporting.log_stats_by_grid(_grid_name text)
+CREATE OR REPLACE FUNCTION reports.log_stats_by_grid(_grid_name text)
   RETURNS TABLE (
 	grid_name text,
 	query_id text,   -- visible as OUT parameter inside and outside function
@@ -19,7 +19,7 @@ RETURN QUERY
 EXECUTE format(E'
 WITH tests AS(
 	SELECT query_id, query_plan, grid_id, polycount
-	FROM reporting.query_plans
+	FROM reports.query_plans
 	JOIN grids.%I ON cell_gid=gid
 	WHERE iteration != 1 AND grid_id = \'%I\'
 ),
