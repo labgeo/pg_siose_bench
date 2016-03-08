@@ -1,29 +1,36 @@
 
+--TODO: Get #Rows from a COUNT(). 
+--"reltuples" is just an approximation.
+CREATE OR REPLACE FUNCTION reports.db_stats(_schemaname text)
+RETURNS TABLE (
+	"Table" text
+	, "#Rows" double precision
+	, "Size" text
+	, "External Size" text) AS
+$BODY$
+BEGIN
+   RETURN QUERY
 
---TODO: Encapsulate as a function
-/*WITH sizes AS(
-SELECT relname as "Table",
+
+WITH sizes AS(
+SELECT relname::text as "Table",
 	pg_size_pretty(pg_total_relation_size(relid)) As "Size",
 	pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) as "External Size"
 FROM pg_catalog.pg_statio_user_tables 
 
-WHERE schemaname='siose'
-AND relname != 'spain_boundary_100k'
-AND relname != 'query_plans'
+WHERE schemaname=_schemaname
 ),
 nrows AS (
 SELECT relname AS "Table",
 	reltuples::double precision AS "#Rows"
 FROM pg_class
-WHERE relname != 'spain_boundary_100k'
-AND relname != 'query_plans'
-AND relname != 'spatial_ref_sys'
-AND relkind = 'r'
-AND relname NOT LIKE '%pg_%'
-AND relname NOT LIKE '%sql_%'
 )
 
-SELECT s."Table", "#Rows", "Size", "External Size"
+SELECT s."Table", n."#Rows", s."Size", s."External Size"
 FROM sizes s 
 JOIN nrows n ON s."Table"=n."Table"
-ORDER BY n."#Rows" DESC*/
+ORDER BY n."#Rows" DESC;
+
+
+END
+$BODY$  LANGUAGE plpgsql;
