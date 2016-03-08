@@ -1,6 +1,6 @@
 
 --Función genérica de lookups
-CREATE OR REPLACE FUNCTION siose.table_lookup(attribute_codes integer[],tblname regclass, colid text, colname text) 
+CREATE OR REPLACE FUNCTION relational.table_lookup(attribute_codes integer[],tblname regclass, colid text, colname text) 
     RETURNS text[] AS $$
 DECLARE
    curr_index integer:=0;

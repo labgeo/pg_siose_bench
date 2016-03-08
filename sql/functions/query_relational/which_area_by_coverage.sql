@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION siose.which_area_by_coverage()
+CREATE OR REPLACE FUNCTION relational.which_area_by_coverage()
   RETURNS void AS
 $BODY$
 
@@ -15,10 +15,10 @@ script:= $literal$
   PREPARE q(geometry) AS
   WITH join_data AS (
     SELECT p.id_polygon, p.siose_code, c.cover_code,
-           siose.attribute_code_lookup(attributes) AS attribute_codes,
+           relational.attribute_code_lookup(attributes) AS attribute_codes,
            v.area_ha, v.area_perc
-    FROM siose.siose_polygons p JOIN siose.siose_values v USING(id_polygon)
-    JOIN siose.siose_coverages AS c USING(id_cover)
+    FROM relational.siose_polygons p JOIN relational.siose_values v USING(id_polygon)
+    JOIN relational.siose_coverages AS c USING(id_cover)
     WHERE p.geom && $1
   ),
   replace_cover_code AS (

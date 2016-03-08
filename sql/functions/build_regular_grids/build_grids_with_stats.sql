@@ -9,12 +9,6 @@ monitor (16:9 aprox). As 4326 is the working SRID defined for the siose polygons
 have been created by applying a generalization in the meters to degrees conversion (1 degree=111.11111Km).
 */
 
-/*
-TODO: This funcion is only valid for the jsonb docker.
-Tables containing siose polygons in each docker can be renamed or we can add a parameter
-to allow specifying table names.
-*/
-
 CREATE OR REPLACE FUNCTION grids.build_regular_grids(boundary_polygon text, siose_polygons text)
   RETURNS VOID AS
 $BODY$

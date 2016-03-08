@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION sioseb.which_scattered_urbanisation()
+CREATE OR REPLACE FUNCTION jsonb.which_scattered_urbanisation()
   RETURNS void AS
 $BODY$
 
@@ -15,7 +15,7 @@ script:= $literal$
 
   WITH polygons AS(
 	SELECT id_polygon, docs
-	FROM sioseb.docstore_jsonb
+	FROM jsonb.docstore_jsonb
 	WHERE geom && $1
   ),
   bfilter AS(

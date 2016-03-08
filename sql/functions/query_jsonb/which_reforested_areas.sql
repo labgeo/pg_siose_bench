@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION sioseb.which_reforested_areas()
+CREATE OR REPLACE FUNCTION jsonb.which_reforested_areas()
   RETURNS void AS
 $BODY$
 
@@ -15,7 +15,7 @@ script:= $literal$
 
   WITH polygons AS(
 	SELECT id_polygon, docs
-	FROM sioseb.docstore_jsonb
+	FROM jsonb.docstore_jsonb
 	WHERE geom && $1
   ),
   bfilter AS(

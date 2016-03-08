@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION sioseb.which_large_coniferous_patches()
+CREATE OR REPLACE FUNCTION jsonb.which_large_coniferous_patches()
   RETURNS void AS
 $BODY$
 
@@ -15,7 +15,7 @@ script:= $literal$
   PREPARE q(geometry) AS
   WITH polygons AS(
     SELECT id_polygon, docs
-    FROM sioseb.docstore_jsonb
+    FROM jsonb.docstore_jsonb
     WHERE geom && $1
   ),
   --Now unnest every possible inner level

@@ -1,6 +1,6 @@
 
 
-CREATE OR REPLACE FUNCTION sioseb.reclass_into_coniferous_density_groups()
+CREATE OR REPLACE FUNCTION jsonb.reclass_into_coniferous_density_groups()
   RETURNS void AS
 $BODY$
 
@@ -15,12 +15,12 @@ script:= $literal$
   PREPARE q(geometry) AS
   WITH polygons AS(
     SELECT id_polygon, docs 
-    FROM sioseb.docstore_jsonb
+    FROM jsonb.docstore_jsonb
     WHERE geom && $1
   ),
   --Now unnest every possible inner level
   --Max. upper bound of parents array (zero based) equals 3 as per
-  --SELECT MAX(array_length(id_parents,1)) FROM siose.siose_values
+  --SELECT MAX(array_length(id_parents,1)) FROM relational.siose_values
   --issued on the relational docker, which means a maximum of 4
   --nesting levels for any JSON document.
   bfilter AS(

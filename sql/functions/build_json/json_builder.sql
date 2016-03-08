@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION siose.json_builder(text)
+CREATE OR REPLACE FUNCTION relational.json_builder(text)
   RETURNS json AS
 $BODY$
 
@@ -25,16 +25,16 @@ WITH RECURSIVE load_data AS (
 		cover_code,
 		cover_desc,
 
-		siose.table_lookup(attributes,'siose.siose_attributes'::regclass, 'id_attribute','attribute_code') AS attribute_codes,
-		siose.table_lookup(attributes,'siose.siose_attributes'::regclass, 'id_attribute','attribute_desc') AS attribute_desc,
+		relational.table_lookup(attributes,'relational.siose_attributes'::regclass, 'id_attribute','attribute_code') AS attribute_codes,
+		relational.table_lookup(attributes,'relational.siose_attributes'::regclass, 'id_attribute','attribute_desc') AS attribute_desc,
 
 		area_ha,
 		area_perc
 
-	FROM siose.siose_polygons AS sp
+	FROM relational.siose_polygons AS sp
 
-	JOIN siose.siose_values AS sv ON sp.id_polygon=sv.id_polygon
-	JOIN siose.siose_coverages AS sc ON sc.id_cover=sv.id_cover
+	JOIN relational.siose_values AS sv ON sp.id_polygon=sv.id_polygon
+	JOIN relational.siose_coverages AS sc ON sc.id_cover=sv.id_cover
 
 	WHERE sp.id_polygon= %s
 	ORDER BY inter_id),
