@@ -29,7 +29,7 @@ script:= $literal$
 
   SELECT id_polygon FROM bfilter;
   
-  SELECT reports.log_query_plans('which_scattered_urbanisation');
+  SELECT reports.log_query_plans('jsonb.which_scattered_urbanisation()');
 $literal$;
 
 

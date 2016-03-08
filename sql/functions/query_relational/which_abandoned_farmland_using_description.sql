@@ -23,7 +23,7 @@ script:= $literal$
   )
   SELECT id_polygon FROM lookup WHERE cover_desc = 'Matorral' AND attribute_desc @> ARRAY['procedencia de cultivos'] 
   GROUP BY 1;  
-  SELECT reports.log_query_plans('which_abandoned_farmland_using_description');
+  SELECT reports.log_query_plans('relational.which_abandoned_farmland_using_description()');
 $literal$;
 
 

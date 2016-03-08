@@ -17,7 +17,7 @@ script:= $literal$
   FROM siose.siose_polygons p JOIN siose.siose_values v USING(id_polygon)
   WHERE p.geom && $1 AND v.id_cover = 316
   GROUP BY p.id_polygon;
-  SELECT reports.log_query_plans('which_coniferous_patches');
+  SELECT reports.log_query_plans('relational.which_coniferous_patches()');
 $literal$;
 
 

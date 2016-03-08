@@ -33,7 +33,7 @@ script:= $literal$
   )
   SELECT id_polygon FROM bfilter;
  
-  SELECT reports.log_query_plans('which_reforested_areas');
+  SELECT reports.log_query_plans('jsonb.which_reforested_areas()');
 $literal$;
 
 

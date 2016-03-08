@@ -55,7 +55,7 @@ script:= $literal$
   FROM bind
   WHERE elements->>'-id'='CNF';
 
-  SELECT reports.log_query_plans('sum_area_of_coniferous_plantations');
+  SELECT reports.log_query_plans('jsonb.sum_area_of_coniferous_plantations()');
 $literal$;
 
 

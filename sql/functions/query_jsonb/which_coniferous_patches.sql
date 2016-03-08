@@ -29,7 +29,7 @@ script:= $literal$
   )
   SELECT id_polygon FROM bfilter;
 
-  SELECT reports.log_query_plans('which_coniferous_patches');
+  SELECT reports.log_query_plans('jsonb.which_coniferous_patches()');
 $literal$;
 
 

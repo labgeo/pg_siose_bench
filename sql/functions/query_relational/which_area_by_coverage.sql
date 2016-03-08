@@ -30,7 +30,7 @@ script:= $literal$
   SELECT id_polygon, id_cover, sum(area_perc) AS sum_area_perc, sum(area_ha) AS sum_area_ha
   FROM replace_cover_code 
   GROUP BY id_polygon, siose_code, id_cover;
-  SELECT reports.log_query_plans('which_area_by_coverage');
+  SELECT reports.log_query_plans('relational.which_area_by_coverage()');
 $literal$;
 
 

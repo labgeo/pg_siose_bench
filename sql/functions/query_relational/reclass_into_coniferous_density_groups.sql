@@ -45,7 +45,7 @@ script:= $literal$
   GROUP BY densclas
   ORDER BY density_classification ASC;
 
-  SELECT reports.log_query_plans('reclass_into_coniferous_density_groups');
+  SELECT reports.log_query_plans('relational.reclass_into_coniferous_density_groups()');
 
 $literal$;
 

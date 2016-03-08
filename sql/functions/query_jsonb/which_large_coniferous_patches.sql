@@ -57,7 +57,7 @@ script:= $literal$
   WHERE elements->>'-id'='CNF' AND (elements->>'-area_ha')::numeric > 1
   GROUP BY id_polygon;
 
-  SELECT reports.log_query_plans('which_large_coniferous_patches');
+  SELECT reports.log_query_plans('jsonb.which_large_coniferous_patches()');
 $literal$;
 
 
