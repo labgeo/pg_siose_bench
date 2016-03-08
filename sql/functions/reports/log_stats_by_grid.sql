@@ -1,6 +1,5 @@
 
 --TODO: Add parameters for number of iterations or warm-up iteration
---TODO: Change to dollar-quoted strings
 CREATE OR REPLACE FUNCTION reports.log_stats_by_grid(_grid_name text)
   RETURNS TABLE (
 	grid_name text,
@@ -12,26 +11,32 @@ CREATE OR REPLACE FUNCTION reports.log_stats_by_grid(_grid_name text)
 	avg_execution_time numeric,
 	stdev_execution_time numeric,
 	polygons_per_ms numeric) AS
-$func$
-BEGIN
-RETURN QUERY
+$BODY$
 
-EXECUTE format(E'
+
+DECLARE 
+script text;
+
+
+BEGIN
+
+script:= $literal$
+
 WITH tests AS(
 	SELECT query_id, query_plan, grid_id, polycount
 	FROM reports.query_plans
-	JOIN grids.%I ON cell_gid=gid
-	WHERE iteration != 1 AND grid_id = \'%I\'
+	JOIN grids.%1$s ON cell_gid=gid
+	WHERE iteration != 1 AND grid_id = '%1$s'
 ),
 full_experiment AS(
 	--Aggregate data
 	SELECT query_id,
 		sum(polycount) AS total_polygons,
-		sum((query_plan->0->\'Plan\'->>\'Actual Rows\')::integer) AS total_actual_rows,
+		sum((query_plan->0->'Plan'->>'Actual Rows')::integer) AS total_actual_rows,
  
-		sum((query_plan->0->>\'Execution Time\')::numeric) AS total_execution_time,
-		avg((query_plan->0->>\'Execution Time\')::numeric) AS avg_execution_time,
-		stddev((query_plan->0->>\'Execution Time\')::numeric) AS stdev_execution_time
+		sum((query_plan->0->>'Execution Time')::numeric) AS total_execution_time,
+		avg((query_plan->0->>'Execution Time')::numeric) AS avg_execution_time,
+		stddev((query_plan->0->>'Execution Time')::numeric) AS stdev_execution_time
 
 	FROM tests
 	GROUP BY 1 ORDER BY 1
@@ -50,10 +55,21 @@ reference_values AS(
 	FROM full_experiment	
 )
 
-SELECT \'%I\'::text AS grid_name, *, total_polygons/total_execution_time AS polygons_per_ms FROM reference_values;', _grid_name, _grid_name, _grid_name);
+SELECT '%1$s'::text AS grid_name, *, total_polygons/total_execution_time AS polygons_per_ms FROM reference_values;
+
+$literal$;
+
+
+script:=format(script,_grid_name);
+
+
+RETURN QUERY
+
+EXECUTE script;
+
 
 RETURN;
 
 END
-$func$  LANGUAGE plpgsql;
+$BODY$  LANGUAGE plpgsql;
 
