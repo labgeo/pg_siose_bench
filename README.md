@@ -17,18 +17,18 @@ NEED TO START HERE!!!
 All other steps depend on this one
 Rename or drop columns, add indexes, comma separated text to arrays, etc
 
-    SELECT siose.setup_relational();
+    SELECT relational.setup_relational();
 
 Now, use the create a JSONB document store
 
-    SELECT siose.jsonb_setup();
+    SELECT relational.jsonb_setup();
 
 
 Build grids from geometries in the relational schema. 
-You could replace 'siose.siose_polygons' by 'sioseb.docstore_jsonb' and get the same results.
+You could replace 'relational.siose_polygons' by 'jsonb.docstore_jsonb' and get the same results.
 However, you could use a diferent boundary (e.g. administrative region, ROI, etc).
 
-    SELECT grids.build_regular_grids('siose.spain_boundary_100k', 'siose.siose_polygons');
+    SELECT grids.build_regular_grids('grids.spain_boundary_100k', 'relational.siose_polygons');
     
 Add logging capabilities
 
@@ -41,18 +41,18 @@ Now, you can use several testing functions to perform some experiments.
 
 Run a complete relational experiment
 
-    SELECT siose.reclass_into_coniferous_density_groups();
-    SELECT siose.sum_area_of_coniferous_plantations();
-    SELECT siose.which_coniferous_patches();
-    SELECT siose.which_large_coniferous_patches();
-    SELECT siose.which_reforested_areas();
-    SELECT siose.which_scattered_urbanisation();
+    SELECT relational.reclass_into_coniferous_density_groups();
+    SELECT relational.sum_area_of_coniferous_plantations();
+    SELECT relational.which_coniferous_patches();
+    SELECT relational.which_large_coniferous_patches();
+    SELECT relational.which_reforested_areas();
+    SELECT relational.which_scattered_urbanisation();
 
 Run a complete jsonb experiment
 
-    SELECT sioseb.reclass_into_coniferous_density_groups();
-    SELECT sioseb.sum_area_of_coniferous_plantations();
-    SELECT sioseb.which_coniferous_patches();
-    SELECT sioseb.which_large_coniferous_patches();
-    SELECT sioseb.which_reforested_areas();
-    SELECT sioseb.which_scattered_urbanisation();
+    SELECT jsonb.reclass_into_coniferous_density_groups();
+    SELECT jsonb.sum_area_of_coniferous_plantations();
+    SELECT jsonb.which_coniferous_patches();
+    SELECT jsonb.which_large_coniferous_patches();
+    SELECT jsonb.which_reforested_areas();
+    SELECT jsonb.which_scattered_urbanisation();
